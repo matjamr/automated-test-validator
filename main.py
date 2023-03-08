@@ -1,5 +1,6 @@
 import difflib
 import os
+import re
 
 
 def compare_notebooks(file1, file2, threshold=0.9):
@@ -15,13 +16,23 @@ def compare_notebooks(file1, file2, threshold=0.9):
 
         # Porównaj listy linii i oblicz podobieństwo
         matcher = difflib.SequenceMatcher(None, lines1, lines2)
-        similarity = matcher.ratio()
 
-        # Zwróć wartość True, jeśli podobieństwo przekracza próg
-        if similarity >= threshold:
+        # Calculate similarity ratio
+        similarity_ratio = matcher.ratio()
+
+        # If similarity ratio is greater than threshold, return True
+        if similarity_ratio >= threshold:
+            # Get matching blocks of code
+            matching_blocks = matcher.get_matching_blocks()
+
+            # Print matching code
+            print(f"Code matching above threshold ({threshold}):")
+            for block in matching_blocks:
+                if block.size > 1:
+                    print("".join(lines1[block.a:block.a + block.size]))
             return True
-        else:
-            return False
+
+    return False
 
 
 def find_plagiarism(directory, threshold=0.9):
@@ -42,5 +53,6 @@ def find_plagiarism(directory, threshold=0.9):
     return pairs
 
 
-plagiarism_pairs = find_plagiarism('.', threshold=0.8)
-print(plagiarism_pairs)
+if __name__ == "__main__":
+    plagiarism_pairs = find_plagiarism('.', threshold=0.8)
+    print(plagiarism_pairs)
