@@ -1,5 +1,6 @@
 import difflib
 import os
+from app.AppEngine import AppEngine
 
 
 def compare_notebooks(file1, file2, threshold=0.9):
@@ -43,4 +44,7 @@ def find_plagiarism(directory, threshold=0.9):
 
 
 plagiarism_pairs = find_plagiarism('.', threshold=0.8)
-print(plagiarism_pairs)
+
+if __name__ == '__main__':
+    appEngine = AppEngine()
+    appEngine.start()
