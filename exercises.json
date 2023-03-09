@@ -1,0 +1,17 @@
+{
+  "zadanie 1": {
+    "expected_output": "niggeri niggeri",
+    "plagiarism_quantity": 0.85,
+    "process_input": false
+  },
+  "zadanie 2": {
+    "expected_output": "niggeri niggeri",
+    "plagiarism_quantity": 0.85,
+    "process_input": false
+  },
+  "zadanie 3": {
+    "expected_output": "niggeri niggeri",
+    "plagiarism_quantity": 0.85,
+    "process_input": false
+  }
+}
