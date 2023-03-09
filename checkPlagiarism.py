@@ -50,11 +50,13 @@ class CheckPlagiarism:
 
         for task in task_names:
             for i in range(len(students_names)):
-                try:
-                    differ = difflib.SequenceMatcher(None, self.students_tasks[students_names[i]][task],
-                                                     self.students_tasks[students_names[i+1]][task])
-                    similarity_ratio = differ.ratio()
-                    print(f"{students_names[i]} i {students_names[i+1]} {task} Podobienstwo: {similarity_ratio}")
+                for j in range(i + 1, len(students_names)):
+                    try:
+                        differ = difflib.SequenceMatcher(None, self.students_tasks[students_names[i]][task],
+                                                         self.students_tasks[students_names[j]][task])
+                        similarity_ratio = differ.ratio()
+                        if similarity_ratio > 0.7:
+                            print(f"{students_names[i]} i {students_names[j]} {task} Podobienstwo: {similarity_ratio}")
 
-                except IndexError:
-                    continue
+                    except IndexError:
+                        continue
