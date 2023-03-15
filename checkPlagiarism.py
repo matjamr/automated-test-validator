@@ -3,7 +3,8 @@ import json
 import glob
 import re
 import pandas as pd
-from copydetect import CopyDetector
+import copydetect
+import os
 
 # TODO[GRZEGORZ]: WIECEJ SKIPOW ZADAN W LAB1, GDY DOSTANE PLIKI DO INNYCH LAB
 
@@ -75,7 +76,7 @@ class CheckPlagiarism:
                                                          self.students_tasks[students_names[j]][task])
                         similarity_ratio = differ.ratio()
                         if similarity_ratio > 0.85:
-                            print(f"{students_names[i]} i {students_names[j]} {task} Podobienstwo: {similarity_ratio}")
+                            # print(f"{students_names[i]} i {students_names[j]} {task} Podobienstwo: {similarity_ratio}")
 
                             file1 = open(f"result/{students_names[i]}_{task}.py", "a", encoding='utf-8')
                             file2 = open(f"result/{students_names[j]}_{task}.py", "a", encoding='utf-8')
@@ -83,15 +84,29 @@ class CheckPlagiarism:
                             file2.write(f"{self.students_tasks[students_names[j]][task]}")
                             file1.close()
                             file2.close()
+
+                            file_path1 = f"result/{students_names[i]}_{task}.py"
+                            file_path2 = f"result/{students_names[j]}_{task}.py"
+
+                            fp1 = copydetect.CodeFingerprint(file_path1, 25, 1)
+                            fp2 = copydetect.CodeFingerprint(file_path2, 25, 1)
+
+                            token_overlap, similarities, _ = copydetect.compare_files(fp1, fp2)
+                            similarity_score = similarities[0]
+
+                            folder = 'result/'
+                            for filename in os.listdir(folder):
+                                file_path = os.path.join(folder, filename)
+                                if os.path.isfile(file_path):
+                                    os.remove(file_path)
+
+                            if similarity_score > 0.85:
+                                print(f"{students_names[i]} i {students_names[j]} {task} "
+                                      f"TEST LEKSYKALNY: {similarity_ratio}"
+                                      f" TEST \"MOSS\": {similarity_score}")
+
                     except IndexError:
                         continue
-
-        detector = CopyDetector(test_dirs=["result/"], extensions=["py"], display_t=0.5)
-        # detector.add_file("copydetect/utils.py")
-        detector.run()
-        detector.generate_html_report()
-
-
 
     def generate_report(self, student_a, student_b, task_number, similarity):
         # TODO[Grzegorz]: dodac generowanie raportow (w nowej klasie)
