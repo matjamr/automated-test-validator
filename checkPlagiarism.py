@@ -13,10 +13,11 @@ import os
 # TODO[Grzegorz]: rodzielic te klase na CheckPlagiarsim, loadFile, GenerateReport
 # TODO[Grzegorz]: przeniesc klase ChcekPlagiarism do app
 
-
+# Po co nam excel?? I mean mamy json w ktorym to trzymamy takie informacje. Excel moze i jest latwo czytelny, ale
+# bardzo uposledzony w naszym przypadku :)
 def import_tasks_to_skip(lab_num):
     df = pd.read_excel("tasksToBeMissed/data.xlsx")
-    return df[int(lab_num[-7])].tolist()
+    return df[int(lab_num[-7])].tolist()    # tbh nie mam pojecia czym jest lab_num[-7] bez analizy kodu -> zmien
 
 
 class CheckPlagiarism:
@@ -24,6 +25,8 @@ class CheckPlagiarism:
         self.json_data = None
         self.students_tasks = {}
 
+    # Ta metoda nie ma nic wspolnego ze sprawdzaniem plagiatu, przenies to do Utils, jako funkcja pomocnicza
+    # (mozesz uzyc dekoratora to zrobienia tego jako funkcje generyczna)
     def load_file(self):
         folder_path = 'filesToCheck/'
         ipynb_files = glob.glob(folder_path + '*.ipynb')
@@ -35,6 +38,7 @@ class CheckPlagiarism:
             notebook_json = json.loads(notebook_content)
             self.json_data[file_path[13::]] = notebook_json['cells']
 
+    # Hmmmm... wydaje mi sie ze skads to znam :)
     def download_tasks(self):
         number_task = 1
 
@@ -68,6 +72,7 @@ class CheckPlagiarism:
             break
 
         # TODO[Grzegorz] : zmniejszyc Notacja dużego O, priorytet - niski  (bo mi sie nie chce myslec)
+        # Problemem nie jest Notacja duzego O, a readability, kod musi byc samodokumentujacy sie
         for task in task_names:
             for i in range(len(students_names)):
                 for j in range(i + 1, len(students_names)):
@@ -110,4 +115,6 @@ class CheckPlagiarism:
 
     def generate_report(self, student_a, student_b, task_number, similarity):
         # TODO[Grzegorz]: dodac generowanie raportow (w nowej klasie)
+        # Important note! Raporty na sam koniec, bo nie mozemy bazowac na samych plagiatach :)
+        # Brane beda pod uwage tez expected wyniki, wiec to moze zostawmy na koniec :)
         pass

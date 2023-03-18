@@ -2,16 +2,50 @@
   "zadanie 1": {
     "expected_output": "niggeri niggeri",
     "plagiarism_quantity": 0.85,
-    "process_input": false
+    "process_input": false,
+    "mocks": [
+      {
+        "type": "str",
+        "content": "nigger"
+      },
+      {
+        "type": "int",
+        "content": 12
+      }
+    ]
   },
   "zadanie 2": {
     "expected_output": "niggeri niggeri",
     "plagiarism_quantity": 0.85,
-    "process_input": false
+    "process_input": false,
+    "mocks": [
+      {
+        "type": "str",
+        "content": "nigger2"
+      },
+      {
+        "type": "int",
+        "content": 123
+      },
+      {
+        "type": "int",
+        "content": 123
+      }
+    ]
   },
   "zadanie 3": {
     "expected_output": "niggeri niggeri",
     "plagiarism_quantity": 0.85,
-    "process_input": false
+    "process_input": false,
+    "mocks": [
+      {
+        "type": "str",
+        "content": "nigger5"
+      },
+      {
+        "type": "int",
+        "content": 1234
+      }
+    ]
   }
 }

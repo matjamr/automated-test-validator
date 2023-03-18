@@ -1,39 +1,33 @@
 import logging
-import re
 
-from app.Utils import read_json
-from app.models.ExpectedExercise import ExpectedExercise
+from app.actions.init_actions import init_context
+from app.context.ValidatorContext import ValidatorContext
+from app.executors.BaseExecutor import BaseExecutor
+from app.executors.ExercisesExecutor import ExercisesExecutor
+from app.executors.MockExecutor import MockExecutor
+from app.executors.PlagiarismExecutor import PlagiarismExecutor
 
 
 class AppEngine:
 
     def __init__(self):
-        self.expected_exercises = {}
-        self.actual_exercises = {}
+        self.validator_context: ValidatorContext = init_context()
+
+        self.executors: [BaseExecutor] = [
+            MockExecutor(),
+            PlagiarismExecutor(),
+            ExercisesExecutor()
+        ]
 
     def start(self):
         logging.info("Starting processing...")
 
-        for k, v in read_json('exercises.json').items():
-            self.expected_exercises[k] = ExpectedExercise(v["expected_output"],
-                                                          v["plagiarism_quantity"],
-                                                          v["process_input"])
+        for executor in self.executors:
+            if executor.should_execute():
+                logging.info("Executing....")
+                executor.execute(self.validator_context)
 
-        cells = read_json('grzegorz.ipynb')['cells']
 
-        print(cells)
-
-        for i in range(len(cells)):
-            el = cells[i]
-
-            tmp = el['source'][0]
-
-            results = re.findall("#+\s+Zadanie\s+[0-9]+\\n", tmp)
-
-            if len(results) <= 0:
-                continue
-
-            self.actual_exercises["zadanie " + tmp[-2]] = cells[i + 1]['source']
 
         # print(self.actual_exercises)
         # program = ''.join(self.actual_exercises['zadanie 1'])
