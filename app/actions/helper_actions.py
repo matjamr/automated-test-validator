@@ -22,6 +22,7 @@ def load_file() -> dict[str: object]:
         with open(file_path, 'r', encoding='utf-8') as file:
             notebook_content = file.read()
         notebook_json = json.loads(notebook_content)
+        # file_path[13::] because 0:13 its folder path
         json_data[file_path[13::]] = notebook_json['cells']
 
     return json_data
