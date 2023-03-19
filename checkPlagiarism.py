@@ -1,120 +1,89 @@
 import difflib
-import json
-import glob
-import re
+
 import pandas as pd
 import copydetect
 import os
-
-# TODO[GRZEGORZ]: WIECEJ SKIPOW ZADAN W LAB1, GDY DOSTANE PLIKI DO INNYCH LAB
-
-# TODO[Grzegorz]: zrobic testy na wiekszych ilosciach danych i kolejnych labolatoriow
-# TODO[Grzegorz]: sprawdzic jak ratio wychodzi na plagiacie, ktory byl lekko refactorowany (zmienne, printy)
-# TODO[Grzegorz]: rodzielic te klase na CheckPlagiarsim, loadFile, GenerateReport
-# TODO[Grzegorz]: przeniesc klase ChcekPlagiarism do app
-
-# Po co nam excel?? I mean mamy json w ktorym to trzymamy takie informacje. Excel moze i jest latwo czytelny, ale
-# bardzo uposledzony w naszym przypadku :)
-def import_tasks_to_skip(lab_num):
-    df = pd.read_excel("tasksToBeMissed/data.xlsx")
-    return df[int(lab_num[-7])].tolist()    # tbh nie mam pojecia czym jest lab_num[-7] bez analizy kodu -> zmien
+from app.actions.helper_actions import load_file, download_tasks
 
 
 class CheckPlagiarism:
     def __init__(self):
-        self.json_data = None
-        self.students_tasks = {}
+        self.json_data = load_file()
+        self.students_tasks = download_tasks(self.json_data)
 
-    # Ta metoda nie ma nic wspolnego ze sprawdzaniem plagiatu, przenies to do Utils, jako funkcja pomocnicza
-    # (mozesz uzyc dekoratora to zrobienia tego jako funkcje generyczna)
-    def load_file(self):
-        folder_path = 'filesToCheck/'
-        ipynb_files = glob.glob(folder_path + '*.ipynb')
-
-        self.json_data = {}
-        for file_path in ipynb_files:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                notebook_content = file.read()
-            notebook_json = json.loads(notebook_content)
-            self.json_data[file_path[13::]] = notebook_json['cells']
-
-    # Hmmmm... wydaje mi sie ze skads to znam :)
-    def download_tasks(self):
-        number_task = 1
-
-        for key, value in self.json_data.items():
-            self.students_tasks[key] = {}
-
-            for i in range(len(value)):
-                el = value[i]
-                tmp = ''.join(el['source'])
-                results = re.findall("#+\s+Zadanie\s+[0-9]+\\n", tmp)
-
-                if len(results) <= 0:
-                    continue
-
-                self.students_tasks[key]["zadanie " + str(number_task)] = ''.join(value[i + 1]['source'])
-                number_task += 1
-
-            number_task = 1
-
-    def task_comparison(self):
+    def start(self):
         students_names = list(self.students_tasks.keys())
         tasks_to_skip = import_tasks_to_skip(students_names[0])
-        task_names = []
+        task_names = get_task_names(tasks_to_skip, self.students_tasks)
 
-        for keys, values in self.students_tasks.items():
-            for key in values.keys():
-                if key in tasks_to_skip:
-                    continue
-                else:
-                    task_names.append(key)
-            break
-
-        # TODO[Grzegorz] : zmniejszyc Notacja dużego O, priorytet - niski  (bo mi sie nie chce myslec)
-        # Problemem nie jest Notacja duzego O, a readability, kod musi byc samodokumentujacy sie
         for task in task_names:
-            for i in range(len(students_names)):
-                for j in range(i + 1, len(students_names)):
-                    try:
-                        differ = difflib.SequenceMatcher(None, self.students_tasks[students_names[i]][task],
-                                                         self.students_tasks[students_names[j]][task])
-                        similarity_ratio = differ.ratio()
-                        if similarity_ratio > 0.85:
-                            # print(f"{students_names[i]} i {students_names[j]} {task} Podobienstwo: {similarity_ratio}")
+            compare_students(task, students_names, self.students_tasks)
 
-                            file1 = open(f"result/{students_names[i]}_{task}.py", "a", encoding='utf-8')
-                            file2 = open(f"result/{students_names[j]}_{task}.py", "a", encoding='utf-8')
-                            file1.write(f"{self.students_tasks[students_names[i]][task]}")
-                            file2.write(f"{self.students_tasks[students_names[j]][task]}")
-                            file1.close()
-                            file2.close()
 
-                            file_path1 = f"result/{students_names[i]}_{task}.py"
-                            file_path2 = f"result/{students_names[j]}_{task}.py"
+def import_tasks_to_skip(lab_num):
+    df = pd.read_excel("tasksToBeMissed/data.xlsx")
+    # lab_num[-7] is laboratory number, [-6::] is ".ipynb"
+    return df[int(lab_num[-7])].tolist()
 
-                            fp1 = copydetect.CodeFingerprint(file_path1, 25, 1)
-                            fp2 = copydetect.CodeFingerprint(file_path2, 25, 1)
 
-                            token_overlap, similarities, _ = copydetect.compare_files(fp1, fp2)
-                            similarity_score = similarities[0]
+def get_task_names(tasks_to_skip, students_tasks):
+    task_names = []
+    for values in students_tasks.values():
+        for key in values.keys():
+            if key not in tasks_to_skip:
+                task_names.append(key)
+        break
+    return task_names
 
-                            folder = 'result/'
-                            for filename in os.listdir(folder):
-                                file_path = os.path.join(folder, filename)
-                                if os.path.isfile(file_path):
-                                    os.remove(file_path)
 
-                            if similarity_score > 0.85:
-                                print(f"{students_names[i]} i {students_names[j]} {task} "
-                                      f"TEST LEKSYKALNY: {similarity_ratio}"
-                                      f" TEST \"MOSS\": {similarity_score}")
+def compare_students(task, students_names, students_tasks):
+    for i in range(len(students_names)):
+        for j in range(i + 1, len(students_names)):
+            try:
+                similarity_ratio = get_similarity_ratio(students_tasks, students_names, i, j, task)
+                if similarity_ratio > 0.85:
+                    write_files(students_names, students_tasks, i, j, task)
+                    similarity_score = get_similarity_score(students_names, i, j, task)
+                    if similarity_score > 0.85:
+                        print_result(students_names, i, j, task, similarity_ratio, similarity_score)
 
-                    except IndexError:
-                        continue
+            except IndexError:
+                continue
 
-    def generate_report(self, student_a, student_b, task_number, similarity):
-        # TODO[Grzegorz]: dodac generowanie raportow (w nowej klasie)
-        # Important note! Raporty na sam koniec, bo nie mozemy bazowac na samych plagiatach :)
-        # Brane beda pod uwage tez expected wyniki, wiec to moze zostawmy na koniec :)
-        pass
+
+def get_similarity_ratio(students_tasks, students_names, i, j, task):
+    differ = difflib.SequenceMatcher(None, students_tasks[students_names[i]][task],
+                                     students_tasks[students_names[j]][task])
+    return differ.ratio()
+
+
+def write_files(students_names, students_tasks, i, j, task):
+    file1 = open(f"result/{students_names[i]}_{task}.py", "a", encoding='utf-8')
+    file2 = open(f"result/{students_names[j]}_{task}.py", "a", encoding='utf-8')
+    file1.write(f"{students_tasks[students_names[i]][task]}")
+    file2.write(f"{students_tasks[students_names[j]][task]}")
+    file1.close()
+    file2.close()
+
+
+def get_similarity_score(students_names, i, j, task):
+    file_path1 = f"result/{students_names[i]}_{task}.py"
+    file_path2 = f"result/{students_names[j]}_{task}.py"
+    fp1 = copydetect.CodeFingerprint(file_path1, 25, 1)
+    fp2 = copydetect.CodeFingerprint(file_path2, 25, 1)
+    token_overlap, similarities, _ = copydetect.compare_files(fp1, fp2)
+    return similarities[0]
+
+
+def print_result(students_names, i, j, task, similarity_ratio, similarity_score):
+    print(f"{students_names[i]} i {students_names[j]}\n{task} "
+          f"\nTEST LEKSYKALNY: {similarity_ratio}"
+          f"\nTEST \"MOSS\": {similarity_score}"
+          f"\nTRZEBA SPRAWDZIC TO ZADANIE\n")
+
+    folder = 'result/'
+    for filename in os.listdir(folder):
+        file_path = os.path.join(folder, filename)
+        file_path = os.path.join(folder, filename)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
