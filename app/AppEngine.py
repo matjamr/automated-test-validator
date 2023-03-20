@@ -13,7 +13,7 @@ class AppEngine:
     def __init__(self):
         self.validator_context: ValidatorContext = init_context()
 
-        self.executors: [BaseExecutor] = [
+        self.executors: list[BaseExecutor] = [
             MockExecutor(),
             PlagiarismExecutor(),
             ExercisesExecutor()

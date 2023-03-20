@@ -54,13 +54,13 @@ class CheckPlagiarism:
             file2.write(f"{self.students_tasks[students_names[j]][task]}")
 
 
-def import_tasks_to_skip(lab_num):
+def import_tasks_to_skip(lab_num: str):
     df = pd.read_excel("tasksToBeMissed/data.xlsx")
     # lab_num[-7] is laboratory number "name_laboratoryNumber.ipynb"
     return df[int(lab_num[-7])].tolist()
 
 
-def get_similarity_score(students_names, i, j, task):
+def get_similarity_score(students_names: list[str], i: int, j: int, task: str):
     file_path1 = f"result/{students_names[i]}_{task}.py"
     file_path2 = f"result/{students_names[j]}_{task}.py"
     fp1 = copydetect.CodeFingerprint(file_path1, 25, 1)
