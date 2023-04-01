@@ -4,6 +4,6 @@ from checkPlagiarism import CheckPlagiarism
 if __name__ == '__main__':
     appEngine = AppEngine()
     appEngine.start()
-    checkPlagiarism = CheckPlagiarism()
-    checkPlagiarism.start()
+    # checkPlagiarism = CheckPlagiarism()
+    # checkPlagiarism.start()
 

@@ -27,10 +27,3 @@ class AppEngine:
                 logging.info("Executing....")
                 executor.execute(self.validator_context)
 
-
-
-        # print(self.actual_exercises)
-        # program = ''.join(self.actual_exercises['zadanie 1'])
-        # program = re.sub('float\(input\(.*\)\)', "2", program)
-        # print(program)
-        # exec(program, {'r': 11, 'R': 10})

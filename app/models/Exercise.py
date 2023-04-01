@@ -4,7 +4,6 @@ class Exercise:
         self.content = content
 
     def execute(self) -> str:
-        print(self.content)
         return exec(self.content)
 
     def __str__(self):
