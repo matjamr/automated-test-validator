@@ -10,8 +10,8 @@ def read_json(filename: str) -> dict[str: object]:
     return data
 
 
-def to_valid_exercise(title: str, exercise_lines: list[str]) -> Exercise:
-    return Exercise(title, ''.join(exercise_lines))
+def to_valid_exercise(title: str, exercise_lines: list[str], creator: str, test_data_series: int) -> Exercise:
+    return Exercise(title, ''.join(exercise_lines), creator, test_data_series)
 
 
 def load_file() -> dict[str: object]:
@@ -49,3 +49,7 @@ def download_tasks(json_data) -> dict[dict[str: object]]:
         number_task = 1
 
     return students_tasks
+
+
+def build_id(notebook_name, exercise_title):
+    return f"{notebook_name}-{exercise_title}"

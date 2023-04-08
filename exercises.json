@@ -1,126 +1,149 @@
-{
-  "zadanie 1": {
-    "expected_output": "pole 473.7410112522892 objetosc 710.6115168784338",
-    "plagiarism_quantity": 0.85,
-    "process_input": false,
-    "mocks": [
-      {
-        "type": "float",
-        "content": 3
-      },
-      {
-        "type": "float",
-        "content": 4
-      }
-    ]
-  },
-  "zadanie 2": {
-    "expected_output": "Liczba: 2.3",
-    "plagiarism_quantity": 0.85,
-    "process_input": false,
-    "mocks": [
-      {
-        "type": "float",
-        "content": 2.23
-      },
-      {
-        "type": "int",
-        "content": 1
-      }
-    ]
-  },
-  "zadanie 3": {
-    "expected_output": "i |1         |\ni |         1|\ni |+        1|\ni |    1     |\ni |0000000001|\ni |    1|\n\nx |2.5       |\nx |       2.5|\nx |+   2.5000|\nx |  2.5000  |\nx |00002.5000|\nx |2.50e+00|",
-    "plagiarism_quantity": 0.85,
-    "process_input": false,
-    "mocks": [
-      {
-        "type": "int",
-        "content": 1
-      },
-      {
-        "type": "float",
-        "content": 2.5
-      }
-    ]
-  },
-  "zadanie 4": {
-    "expected_output": "xdxmxxs",
-    "plagiarism_quantity": 0.85,
-    "process_input": false,
-    "mocks": [
-      {
-        "type": "str",
-        "content": "'adamuos'"
-      },
-      {
-        "type": "str",
-        "content": "'x'"
-      }
-    ]
-  },
-  "zadanie 5": {
-    "expected_output": "Tekst: bba Len: 1",
-    "plagiarism_quantity": 0.85,
-    "process_input": false,
-    "mocks": [
-      {
-        "type": "str",
-        "content": "'aa'"
-      },
-      {
-        "type": "str",
-        "content": "'bb'"
-      },
-      {
-        "type": "int",
-        "content": 1
-      }
-    ]
-  },
-  "zadanie 6": {
-    "expected_output": "suma = 46 iloczyn = 1",
-    "plagiarism_quantity": 0.85,
-    "process_input": false,
-    "mocks": [
-      {
-        "type": "int",
-        "content": 10
-      },
-      {
-        "type": "int",
-        "content": 12
-      },
-      {
-        "type": "int",
-        "content": 13
-      }
-    ]
-  },
-  "zadanie 7": {
-    "expected_output": "Taki dzien nie istnieje\nNie znasz dni tygodnia",
-    "plagiarism_quantity": 0.85,
-    "process_input": false,
-    "mocks": [
-      {
-        "type": "str",
-        "content": "'poniedzialek'"
-      },
-      {
-        "type": "str",
-        "content": "'2'"
-      }
-    ]
-  },
-  "zadanie 8": {
-    "expected_output": "7 jest liczbą pierwszą.",
-    "plagiarism_quantity": 0.85,
-    "process_input": false,
-    "mocks": [
-      {
-        "type": "int",
-        "content": 7
-      }
-    ]
+[
+  {
+    "zadanie 1": {
+      "expected_outputs": [
+        "pole 473.7410112522892 objetosc 710.6115168784338",
+        "cuuuus"
+      ],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [
+        [
+          {
+            "type": "float",
+            "content": 3
+          },
+          {
+            "type": "float",
+            "content": 4
+          }
+        ],
+        [
+          {
+            "type": "float",
+            "content": 5
+          },
+          {
+            "type": "float",
+            "content": 6
+          }
+        ]
+      ]
+    },
+    "zadanie 2": {
+      "expected_outputs": [
+        "Liczba: 2.3"
+      ],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [
+        [
+          {
+            "type": "float",
+            "content": 2.23
+          },
+          {
+            "type": "int",
+            "content": 1
+          }
+        ]
+      ]
+    },
+    "zadanie 3": {
+      "expected_outputs": [
+        "i |1         |\ni |         1|\ni |+        1|\ni |    1     |\ni |0000000001|\ni |    1|\n\nx |2.5       |\nx |       2.5|\nx |+   2.5000|\nx |  2.5000  |\nx |00002.5000|\nx |2.50e+00|"
+      ],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "int",
+          "content": 1
+        },
+        {
+          "type": "float",
+          "content": 2.5
+        }
+      ]]
+    },
+    "zadanie 4": {
+      "expected_outputs": ["xdxmxxs"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "str",
+          "content": "'adamuos'"
+        },
+        {
+          "type": "str",
+          "content": "'x'"
+        }
+      ]]
+    },
+    "zadanie 5": {
+      "expected_outputs": ["Tekst: bba Len: 1"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "str",
+          "content": "'aa'"
+        },
+        {
+          "type": "str",
+          "content": "'bb'"
+        },
+        {
+          "type": "int",
+          "content": 1
+        }
+      ]]
+    },
+    "zadanie 6": {
+      "expected_outputs": ["suma = 46 iloczyn = 1"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "int",
+          "content": 10
+        },
+        {
+          "type": "int",
+          "content": 12
+        },
+        {
+          "type": "int",
+          "content": 13
+        }
+      ]]
+    },
+    "zadanie 7": {
+      "expected_outputs": ["Taki dzien nie istnieje\nNie znasz dni tygodnia"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "str",
+          "content": "'poniedzialek'"
+        },
+        {
+          "type": "str",
+          "content": "'2'"
+        }
+      ]]
+    },
+    "zadanie 8": {
+      "expected_outputs": ["7 jest liczbą pierwszą."],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "int",
+          "content": 7
+        }
+      ]]
+    }
   }
-}
+]

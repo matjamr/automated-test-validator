@@ -13,25 +13,34 @@ class ExercisesExecutor(BaseExecutor):
         return True
 
     def execute(self, validator_context: ValidatorContext) -> None:
-        for exercise_title, exercise in validator_context.actual_exercises.items():
-            print("Checking {} validity".format(exercise_title))
-            old_stdout = sys.stdout
-            new_stdout = io.StringIO()
-            sys.stdout = new_stdout
+        for lab_filename_exercise_title_tuple, exercise in validator_context.actual_exercises.items():
 
-            exercise.execute()
+            for series_id, content_exercise in enumerate(exercise.content_list):
+                print("Checking {} validity with data series: {}".format(lab_filename_exercise_title_tuple[1],
+                                                                         series_id))
 
-            result = sys.stdout.getvalue().strip()
-            sys.stdout = old_stdout
+                old_stdout = sys.stdout
+                new_stdout = io.StringIO()
+                sys.stdout = new_stdout
 
-            self.validate(result, exercise_title, validator_context)
+                exercise.execute(series_id)
 
-    def validate(self, result: str, exercise_title: str, validator_context: ValidatorContext):
+                result = sys.stdout.getvalue().strip()
+                sys.stdout = old_stdout
+
+                self.validate(result, lab_filename_exercise_title_tuple, validator_context, series_id)
+
+    def validate(self, result: str, lab_filename_exercise_title_tuple: tuple, validator_context: ValidatorContext, series_id: int):
         try:
-            assert_that(result).is_equal_to(validator_context.expected_exercises[exercise_title].expected_output)
+            id: str = self.tuple_to_exercise_id(lab_filename_exercise_title_tuple)
+            assert_that(result).is_equal_to(validator_context.expected_exercises[id].expected_outputs[series_id])
         except AssertionError as s:
-            # print('\033[91m' + ''.join(traceback.format_tb(s.__traceback__)) + '\033[0m') -> custom assertion will
-            # be thrown
-            print("{} is not valid! :c".format(exercise_title))
+            print("{} is not valid! :c FOR {}".format(lab_filename_exercise_title_tuple, series_id))
         else:
-            print("{} is valid! c:".format(exercise_title))
+            print("{} is valid! c: FOR {}".format(lab_filename_exercise_title_tuple, series_id))
+
+    def tuple_to_exercise_id(self, tupl):
+        arr = tupl[0].split("_")[:2]
+
+        return f"{'_'.join(arr)}_{tupl[1]}"
+        # return f"{}"
