@@ -14,7 +14,7 @@ def _init_expected_exercises():
     labs_expected_exercises = read_json('exercises.json')
 
     for i, lab in enumerate(labs_expected_exercises):
-        for title, body in lab.items():
+        for title, body in labs_expected_exercises[lab].items():
             expected_exercises[f"lab_{i+1}_{title}"] = ExpectedExercise(body["expected_outputs"],
                                                      body["plagiarism_quantity"],
                                                      body["process_input"])
@@ -30,6 +30,7 @@ def _init_actual_exercises():
     for notebook_file_name in notebook_file_names:
         cells = read_json('filesToCheck/{}'.format(notebook_file_name))['cells']
 
+
         for i in range(len(cells)):
             el = cells[i]
 
@@ -43,9 +44,17 @@ def _init_actual_exercises():
             if len(results) <= 0:
                 continue
 
+            created_by = re.findall("lab_.*_(.+).ipynb", notebook_file_name)
+            lab_num = re.findall("lab_(.*)_", notebook_file_name)
+
+            if len(created_by) < 1 or len(lab_num) < 1:
+                raise FileNotFoundError("File template does not match for ", notebook_file_name)
+
             title: str = "zadanie " + tmp[-2]
             content_lines: list[str] = cells[i + 1]['source']
-            actual_exercises[(notebook_file_name, title)] = to_valid_exercise(title, content_lines, "random-creator", 0)
+            actual_exercises[(notebook_file_name, title)] = to_valid_exercise(title, content_lines,
+                                                                              created_by[0], 0,
+                                                                              lab_num[0]) # [0] -> regex findall
 
     return actual_exercises
 
@@ -55,7 +64,7 @@ def _init_mocks():
     labs_expected_exercises = read_json('exercises.json')
 
     for i, lab in enumerate(labs_expected_exercises):
-        for exercise_title, content in lab.items():
+        for exercise_title, content in labs_expected_exercises[lab].items():
             data_series_list = content['data_series']
 
             for data_series_id, new_mocks in enumerate(data_series_list):

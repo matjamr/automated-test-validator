@@ -5,6 +5,8 @@ import traceback
 from app.Assertions.Assertz import assert_that
 from app.context.ValidatorContext import ValidatorContext
 from app.executors.BaseExecutor import BaseExecutor
+from app.models.Exercise import Exercise
+from app.models.ResultExercise import ResultExercise
 
 
 class ExercisesExecutor(BaseExecutor):
@@ -28,19 +30,33 @@ class ExercisesExecutor(BaseExecutor):
                 result = sys.stdout.getvalue().strip()
                 sys.stdout = old_stdout
 
-                self.validate(result, lab_filename_exercise_title_tuple, validator_context, series_id)
+                self.validate(result, lab_filename_exercise_title_tuple, validator_context, series_id, exercise)
 
-    def validate(self, result: str, lab_filename_exercise_title_tuple: tuple, validator_context: ValidatorContext, series_id: int):
+        print("Dupoa dupa dupcia")
+
+    def validate(self, result: str, lab_filename_exercise_title_tuple: tuple,
+                 validator_context: ValidatorContext, series_id: int, exercise: Exercise):
+
+        id: str = self.tuple_to_exercise_id(lab_filename_exercise_title_tuple)
+
         try:
-            id: str = self.tuple_to_exercise_id(lab_filename_exercise_title_tuple)
             assert_that(result).is_equal_to(validator_context.expected_exercises[id].expected_outputs[series_id])
+
         except AssertionError as s:
             print("{} is not valid! :c FOR {}".format(lab_filename_exercise_title_tuple, series_id))
+
+            validator_context.exercises_result.append(ResultExercise(exercise.lab_num,
+                                                                     lab_filename_exercise_title_tuple[1],
+                                                                     exercise.creator, False, id))
+
         else:
             print("{} is valid! c: FOR {}".format(lab_filename_exercise_title_tuple, series_id))
+
+            validator_context.exercises_result.append(ResultExercise(exercise.lab_num,
+                                                                     lab_filename_exercise_title_tuple[1],
+                                                                     exercise.creator, True, id))
 
     def tuple_to_exercise_id(self, tupl):
         arr = tupl[0].split("_")[:2]
 
         return f"{'_'.join(arr)}_{tupl[1]}"
-        # return f"{}"

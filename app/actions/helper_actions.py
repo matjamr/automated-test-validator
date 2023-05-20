@@ -10,8 +10,8 @@ def read_json(filename: str) -> dict[str: object]:
     return data
 
 
-def to_valid_exercise(title: str, exercise_lines: list[str], creator: str, test_data_series: int) -> Exercise:
-    return Exercise(title, ''.join(exercise_lines), creator, test_data_series)
+def to_valid_exercise(title: str, exercise_lines: list[str], creator: str, test_data_series: int, lab_num: str) -> Exercise:
+    return Exercise(title, ''.join(exercise_lines), creator, test_data_series, [], "lab_" + lab_num)
 
 
 def load_file() -> dict[str: object]:

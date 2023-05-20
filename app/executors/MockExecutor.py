@@ -1,8 +1,8 @@
+import re
+
 from app.context.Mock import Mock
 from app.context.ValidatorContext import ValidatorContext
 from app.executors.BaseExecutor import BaseExecutor
-from app.models.Exercise import Exercise
-import re
 
 
 class MockExecutor(BaseExecutor):
