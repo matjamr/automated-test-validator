@@ -1,9 +1,9 @@
-[
+{
+  "Lab 1":
   {
     "zadanie 1": {
       "expected_outputs": [
-        "pole 473.7410112522892 objetosc 710.6115168784338",
-        "cuuuus"
+        "pole 473.7410112522892\nobjetosc 710.6115168784338"
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
@@ -50,9 +50,7 @@
       ]
     },
     "zadanie 3": {
-      "expected_outputs": [
-        "i |1         |\ni |         1|\ni |+        1|\ni |    1     |\ni |0000000001|\ni |    1|\n\nx |2.5       |\nx |       2.5|\nx |+   2.5000|\nx |  2.5000  |\nx |00002.5000|\nx |2.50e+00|"
-      ],
+      "expected_outputs": ["Formaty przekształcenia dla liczb całkowitych:\ni |1|\ni |         1|\ni |        +1|\ni |1         |\ni |0000000001|\ni |     00001|\n\nFormaty przekształcenia dla liczb rzeczywistych:\nx |2.5|\nx |       2.5|\nx |   +2.5000|\nx |2.5000    |\nx |00002.5000|\nx |2.5000e+00|"],
       "plagiarism_quantity": 0.85,
       "process_input": false,
       "data_series": [[
@@ -82,7 +80,7 @@
       ]]
     },
     "zadanie 5": {
-      "expected_outputs": ["Tekst: bba Len: 1"],
+      "expected_outputs": ["Tekst: bba liczba: 1"],
       "plagiarism_quantity": 0.85,
       "process_input": false,
       "data_series": [[
@@ -126,7 +124,7 @@
       "data_series": [[
         {
           "type": "str",
-          "content": "'poniedzialek'"
+          "content": "'cos'"
         },
         {
           "type": "str",
@@ -145,5 +143,186 @@
         }
       ]]
     }
+  },
+  "Lab 2":
+  {
+    "zadanie 1": {
+      "expected_outputs": ["2 liczba Mersenne'a jest pierwsza\n3 liczba Mersenne'a jest pierwsza\n5 liczba Mersenne'a jest pierwsza\n7 liczba Mersenne'a jest pierwsza\n13 liczba Mersenne'a jest pierwsza\n17 liczba Mersenne'a jest pierwsza\n19 liczba Mersenne'a jest pierwsza\n31 liczba Mersenne'a jest pierwsza"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": []
+    },
+    "zadanie 2": {
+      "expected_outputs": ["                               Zażółć gęślą jaźń                                \n                Zażółć gęślą jaźń"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": []
+    }
+  },
+  "Lab 3":
+  {
+    "zadanie 1": {
+      "expected_outputs": ["[0, 0, 8, 0, 8, 0]"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "list",
+          "content": "[1, 3, 8, 1, 8, 3]"
+        }
+      ]]
+    },
+    "zadanie 2": {
+      "expected_outputs": ["True"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "list",
+          "content": "[1, 3, 8, 2, 2, 5]"
+        }
+      ]]
+    },
+    "zadanie 3": {
+      "expected_outputs": ["[1, 8, 3.5]"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "list",
+          "content": "[1, 3, 8, 2, 2, 5]"
+        }
+      ]]
+    },
+    "zadanie 4": {
+      "expected_outputs": ["[1, 3, 8, 2, 2, 5]"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "list",
+          "content": "[1, 3, 8, 2, 2, 5]"
+        }
+      ]]
+    },
+    "zadanie 5": {
+      "expected_outputs": ["[1, 4.5, 2.5, 5.0, 3.5, 5]"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "list",
+          "content": "[1, 3, 8, 2, 2, 5]"
+        }
+      ]]
+    },
+    "zadanie 6": {
+      "expected_outputs": ["['KS', 'au', 'ml', 'iż', 'ly']"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "str",
+          "content": "'Kamil'"
+        },
+        {
+          "type": "str",
+          "content": "'Sulżycki'"
+        }
+      ]]
+    },
+    "zadanie 7": {
+      "expected_outputs": ["[0.9036144578313253, 0.8290598290598291, 1.0092592592592593, 0.27631578947368424, 0.8925619834710744]"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "str",
+          "content": "'Kamil'"
+        },
+        {
+          "type": "str",
+          "content": "'Sulżycki'"
+        }
+      ]]
+    },
+    "zadanie 8": {
+      "expected_outputs": ["[2, 2, 1, 8, 5]"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "list",
+          "content": "[1,3,8,2,2,5]"
+        }
+      ]]
+    },
+    "zadanie 9": {
+      "expected_outputs": ["[]"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "list",
+          "content": "[1,3,8,2,2,5]"
+        }
+      ]]
+    },
+    "zadanie 10": {
+      "expected_outputs": ["[1, 3, 0, 8, 2, 0, 2, 5]"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "list",
+          "content": "[1,3,8,2,2,5]"
+        }
+      ]]
+    },
+    "zadanie 11": {
+      "expected_outputs": ["[1, 0, 1, 0, 1, 0, 1, 0]\n[0, 1, 0, 1, 0, 1, 0, 1]\n[1, 0, 1, 0, 1, 0, 1, 0]\n[0, 1, 0, 1, 0, 1, 0, 1]\n[1, 0, 1, 0, 1, 0, 1, 0]\n[0, 1, 0, 1, 0, 1, 0, 1]\n[1, 0, 1, 0, 1, 0, 1, 0]\n[0, 1, 0, 1, 0, 1, 0, 1]"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "int",
+          "content": "8"
+        }
+      ]]
+    },
+    "zadanie 12": {
+      "expected_outputs": ["['przykładowy', 'zadania', 'dwunastego']"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "int",
+          "content": "To jest przykładowy tekst dla zadania dwunastego na JS"
+        }
+      ]]
+    },
+    "zadanie 13": {
+      "expected_outputs": ["[0, 1, 2, 30, 4, 3, 5, 6, 7, 8, 9, 10, 11, 12]"],
+      "plagiarism_quantity": 0.85,
+      "process_input": false,
+      "data_series": [[
+        {
+          "type": "list",
+          "content": "[0, 1, 2, 30, 4]"
+        },
+        {
+          "type": "list",
+          "content": "[3, 4, 5, 6, 7]"
+        },
+        {
+          "type": "list",
+          "content": "[7, 8, 9]"
+        },
+        {
+          "type": "list",
+          "content": "[10, 11, 12, 5]"
+        }
+      ]]
+    }
   }
-]
+}
