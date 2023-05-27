@@ -6,6 +6,7 @@ from app.executors.BaseExecutor import BaseExecutor
 from app.executors.ExercisesExecutor import ExercisesExecutor
 from app.executors.MockExecutor import MockExecutor
 from app.executors.PlagiarismExecutor import PlagiarismExecutor
+from app.executors.RaportExecutor import RaportExecutor
 
 
 class AppEngine:
@@ -16,7 +17,8 @@ class AppEngine:
         self.executors: list[BaseExecutor] = [
             MockExecutor(),
             # PlagiarismExecutor(),
-            ExercisesExecutor()
+            ExercisesExecutor(),
+            RaportExecutor()
         ]
 
     def start(self):
