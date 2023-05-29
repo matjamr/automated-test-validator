@@ -96,7 +96,7 @@ class PlagiarismExecutor(BaseExecutor):
                             self.update_result(students_names, i, j, task)
                             clean_up_files()
 
-                except IndexError:
+                except (IndexError, KeyError):
                     continue
 
     def get_similarity_ratio(self, students_names: list[int], i: int, j: int, task: str) -> float:
