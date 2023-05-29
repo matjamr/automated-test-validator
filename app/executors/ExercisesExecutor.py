@@ -23,7 +23,6 @@ class ExercisesExecutor(BaseExecutor):
             else:
                 self.exec(exercise, lab_filename_exercise_title_tuple, 0, validator_context)
 
-        print("Dupoa dupa dupcia")
 
     def exec(self, exercise, lab_filename_exercise_title_tuple, series_id, validator_context):
         print("Checking {} validity with data series: {}".format(lab_filename_exercise_title_tuple[1],
