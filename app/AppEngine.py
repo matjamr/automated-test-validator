@@ -16,7 +16,7 @@ class AppEngine:
 
         self.executors: list[BaseExecutor] = [
             MockExecutor(),
-            # PlagiarismExecutor(),
+            PlagiarismExecutor(),
             ExercisesExecutor(),
             RaportExecutor()
         ]
