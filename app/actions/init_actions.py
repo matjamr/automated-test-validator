@@ -30,7 +30,6 @@ def _init_actual_exercises():
     for notebook_file_name in notebook_file_names:
         cells = read_json('filesToCheck/{}'.format(notebook_file_name))['cells']
 
-
         for i in range(len(cells)):
             el = cells[i]
 
