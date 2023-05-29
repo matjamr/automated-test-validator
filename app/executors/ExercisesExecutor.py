@@ -23,27 +23,24 @@ class ExercisesExecutor(BaseExecutor):
             else:
                 self.exec(exercise, lab_filename_exercise_title_tuple, 0, validator_context)
 
-
     def exec(self, exercise, lab_filename_exercise_title_tuple, series_id, validator_context):
         print("Checking {} validity with data series: {}".format(lab_filename_exercise_title_tuple[1],
                                                                  series_id))
-        old_stdout = sys.stdout
-        new_stdout = io.StringIO()
-        sys.stdout = new_stdout
-        exercise.execute(series_id)
-        result = sys.stdout.getvalue().strip()
-        sys.stdout = old_stdout
-        self.validate(result, lab_filename_exercise_title_tuple, validator_context, series_id, exercise)
-
-    def validate(self, result: str, lab_filename_exercise_title_tuple: tuple,
-                 validator_context: ValidatorContext, series_id: int, exercise: Exercise):
 
         id: str = self.tuple_to_exercise_id(lab_filename_exercise_title_tuple)
 
         try:
+
+            old_stdout = sys.stdout
+            new_stdout = io.StringIO()
+            sys.stdout = new_stdout
+            exercise.execute(series_id)
+            result = sys.stdout.getvalue().strip()
+            sys.stdout = old_stdout
+
             assert_that(result).is_equal_to(validator_context.expected_exercises[id].expected_outputs[series_id])
 
-        except AssertionError as s:
+        except Exception as s:
             print("{} is not valid! :c FOR {}".format(lab_filename_exercise_title_tuple, series_id))
 
             validator_context.exercises_result.append(ResultExercise(exercise.lab_num,
