@@ -1,8 +1,6 @@
 from app.context import ValidatorContext
 from app.executors.BaseExecutor import BaseExecutor
 
-import pandas as pd
-
 import xlsxwriter
 
 from app.models.ResultExercise import ResultExercise
@@ -16,7 +14,7 @@ class RaportExecutor(BaseExecutor):
     def execute(self, validator_context: ValidatorContext) -> None:
 
         # Create a workbook and add a worksheet.
-        workbook = xlsxwriter.Workbook('Expenses01.xlsx')
+        workbook = xlsxwriter.Workbook('Result.xlsx')
 
         lab_dict: dict[str:list[ResultExercise]] = self.init_lab_dict(validator_context)
 

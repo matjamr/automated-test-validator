@@ -157,39 +157,14 @@
       ]
     }
   },
-  "Lab 2": {
-    "zadanie 1": {
-      "expected_outputs": [
-        "2 liczba Mersenne'a jest pierwsza\n3 liczba Mersenne'a jest pierwsza\n5 liczba Mersenne'a jest pierwsza\n7 liczba Mersenne'a jest pierwsza\n13 liczba Mersenne'a jest pierwsza\n17 liczba Mersenne'a jest pierwsza\n19 liczba Mersenne'a jest pierwsza\n31 liczba Mersenne'a jest pierwsza"
-      ],
-      "plagiarism_quantity": 0.85,
-      "process_input": false,
-      "data_series": []
-    },
-    "zadanie 2": {
-      "expected_outputs": [
-        "                               Zażółć gęślą jaźń                                \n                Zażółć gęślą jaźń"
-      ],
-      "plagiarism_quantity": 0.85,
-      "process_input": false,
-      "data_series": []
-    }
-  },
-  "Lab 3": {
+  "lab_3": {
     "zadanie 1": {
       "expected_outputs": [
         "[0, 0, 8, 0, 8, 0]"
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "list",
-            "content": "[1, 3, 8, 1, 8, 3]"
-          }
-        ]
-      ]
+      "data_series": []
     },
     "zadanie 2": {
       "expected_outputs": [
@@ -197,14 +172,7 @@
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "list",
-            "content": "[1, 3, 8, 2, 2, 5]"
-          }
-        ]
-      ]
+      "data_series": []
     },
     "zadanie 3": {
       "expected_outputs": [
@@ -212,14 +180,7 @@
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "list",
-            "content": "[1, 3, 8, 2, 2, 5]"
-          }
-        ]
-      ]
+      "data_series": []
     },
     "zadanie 4": {
       "expected_outputs": [
@@ -227,14 +188,7 @@
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "list",
-            "content": "[1, 3, 8, 2, 2, 5]"
-          }
-        ]
-      ]
+      "data_series": []
     },
     "zadanie 5": {
       "expected_outputs": [
@@ -242,14 +196,7 @@
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "list",
-            "content": "[1, 3, 8, 2, 2, 5]"
-          }
-        ]
-      ]
+      "data_series": []
     },
     "zadanie 6": {
       "expected_outputs": [
@@ -257,18 +204,7 @@
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "str",
-            "content": "'Kamil'"
-          },
-          {
-            "type": "str",
-            "content": "'Sulżycki'"
-          }
-        ]
-      ]
+      "data_series": []
     },
     "zadanie 7": {
       "expected_outputs": [
@@ -276,18 +212,7 @@
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "str",
-            "content": "'Kamil'"
-          },
-          {
-            "type": "str",
-            "content": "'Sulżycki'"
-          }
-        ]
-      ]
+      "data_series": []
     },
     "zadanie 8": {
       "expected_outputs": [
@@ -295,14 +220,7 @@
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "list",
-            "content": "[1,3,8,2,2,5]"
-          }
-        ]
-      ]
+      "data_series": []
     },
     "zadanie 9": {
       "expected_outputs": [
@@ -310,14 +228,7 @@
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "list",
-            "content": "[1,3,8,2,2,5]"
-          }
-        ]
-      ]
+      "data_series": []
     },
     "zadanie 10": {
       "expected_outputs": [
@@ -325,14 +236,7 @@
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "list",
-            "content": "[1,3,8,2,2,5]"
-          }
-        ]
-      ]
+      "data_series": []
     },
     "zadanie 11": {
       "expected_outputs": [
@@ -340,14 +244,7 @@
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "int",
-            "content": "8"
-          }
-        ]
-      ]
+      "data_series": []
     },
     "zadanie 12": {
       "expected_outputs": [
@@ -355,41 +252,15 @@
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "int",
-            "content": "To jest przykładowy tekst dla zadania dwunastego na JS"
-          }
-        ]
-      ]
+      "data_series": []
     },
     "zadanie 13": {
       "expected_outputs": [
-        "[0, 1, 2, 30, 4, 3, 5, 6, 7, 8, 9, 10, 11, 12]"
+        "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 30]"
       ],
       "plagiarism_quantity": 0.85,
       "process_input": false,
-      "data_series": [
-        [
-          {
-            "type": "list",
-            "content": "[0, 1, 2, 30, 4]"
-          },
-          {
-            "type": "list",
-            "content": "[3, 4, 5, 6, 7]"
-          },
-          {
-            "type": "list",
-            "content": "[7, 8, 9]"
-          },
-          {
-            "type": "list",
-            "content": "[10, 11, 12, 5]"
-          }
-        ]
-      ]
+      "data_series": []
     }
   }
 }

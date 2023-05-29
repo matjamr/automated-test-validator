@@ -17,16 +17,22 @@ class MockExecutor(BaseExecutor):
         for exercise_title, exercise in exercises.items():
             mocks: list[Mock] = [mock for mock in validator_context.mocks if mock.exercise_title == exercise_title[1] and mock.lab_num in exercise_title[0]]
 
-            new_mocks_dict = self.split_mocks_into_series_dict(mocks)
             content_lists = []
 
-            for data_series_id, mocks_list in new_mocks_dict.items():
+            if len(mocks) <= 0:
                 new_content = exercise.content
 
-                for mock in mocks_list:
-                    new_content = re.sub("{}\(input\(.+\)\)".format(mock.type), str(mock.content), new_content, 1)
-
                 content_lists.append(new_content)
+            else:
+                new_mocks_dict = self.split_mocks_into_series_dict(mocks)
+
+                for data_series_id, mocks_list in new_mocks_dict.items():
+                    new_content = exercise.content
+
+                    for mock in mocks_list:
+                        new_content = re.sub("{}\(input\(.+\)\)".format(mock.type), str(mock.content), new_content, 1)
+
+                    content_lists.append(new_content)
 
                 # new_exercise = Exercise(exercise_title, con, exercise.creator, data_series_id)
 

@@ -15,7 +15,7 @@ def _init_expected_exercises():
 
     for i, lab in enumerate(labs_expected_exercises):
         for title, body in labs_expected_exercises[lab].items():
-            expected_exercises[f"lab_{i+1}_{title}"] = ExpectedExercise(body["expected_outputs"],
+            expected_exercises[f"{lab}_{title}"] = ExpectedExercise(body["expected_outputs"],
                                                      body["plagiarism_quantity"],
                                                      body["process_input"])
     return expected_exercises
@@ -50,7 +50,7 @@ def _init_actual_exercises():
             if len(created_by) < 1 or len(lab_num) < 1:
                 raise FileNotFoundError("File template does not match for ", notebook_file_name)
 
-            title: str = "zadanie " + tmp[-2]
+            title: str = "zadanie " + tmp.split(" ")[-1][:-1]
             content_lines: list[str] = cells[i + 1]['source']
             actual_exercises[(notebook_file_name, title)] = to_valid_exercise(title, content_lines,
                                                                               created_by[0], 0,

@@ -17,22 +17,24 @@ class ExercisesExecutor(BaseExecutor):
     def execute(self, validator_context: ValidatorContext) -> None:
         for lab_filename_exercise_title_tuple, exercise in validator_context.actual_exercises.items():
 
-            for series_id, content_exercise in enumerate(exercise.content_list):
-                print("Checking {} validity with data series: {}".format(lab_filename_exercise_title_tuple[1],
-                                                                         series_id))
-
-                old_stdout = sys.stdout
-                new_stdout = io.StringIO()
-                sys.stdout = new_stdout
-
-                exercise.execute(series_id)
-
-                result = sys.stdout.getvalue().strip()
-                sys.stdout = old_stdout
-
-                self.validate(result, lab_filename_exercise_title_tuple, validator_context, series_id, exercise)
+            if len(exercise.content_list) > 0:
+                for series_id, content_exercise in enumerate(exercise.content_list):
+                    self.exec(exercise, lab_filename_exercise_title_tuple, series_id, validator_context)
+            else:
+                self.exec(exercise, lab_filename_exercise_title_tuple, 0, validator_context)
 
         print("Dupoa dupa dupcia")
+
+    def exec(self, exercise, lab_filename_exercise_title_tuple, series_id, validator_context):
+        print("Checking {} validity with data series: {}".format(lab_filename_exercise_title_tuple[1],
+                                                                 series_id))
+        old_stdout = sys.stdout
+        new_stdout = io.StringIO()
+        sys.stdout = new_stdout
+        exercise.execute(series_id)
+        result = sys.stdout.getvalue().strip()
+        sys.stdout = old_stdout
+        self.validate(result, lab_filename_exercise_title_tuple, validator_context, series_id, exercise)
 
     def validate(self, result: str, lab_filename_exercise_title_tuple: tuple,
                  validator_context: ValidatorContext, series_id: int, exercise: Exercise):
@@ -58,5 +60,7 @@ class ExercisesExecutor(BaseExecutor):
 
     def tuple_to_exercise_id(self, tupl):
         arr = tupl[0].split("_")[:2]
+
+        print(tupl)
 
         return f"{'_'.join(arr)}_{tupl[1]}"
