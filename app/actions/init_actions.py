@@ -5,7 +5,7 @@ import json
 from app.actions.helper_actions import read_json, to_valid_exercise, build_id
 from app.context.Mock import Mock
 from app.context.ValidatorContext import ValidatorContext
-from app.models.EmptyFolder import EmptyFolder
+from app.models.FolderStructure import FolderStructure
 from app.models.ExpectedExercise import ExpectedExercise
 
 
@@ -22,45 +22,8 @@ def _init_expected_exercises():
     return expected_exercises
 
 
-def _init_actual_exercises():
-    actual_exercises = {}
-
-    path_to_json_files = 'filesToCheck/'
-    notebook_file_names = [filename for filename in os.listdir(path_to_json_files) if filename.endswith('.ipynb')]
-
-    for notebook_file_name in notebook_file_names:
-        cells = read_json('filesToCheck/{}'.format(notebook_file_name))['cells']
-
-        for i in range(len(cells)):
-            el = cells[i]
-
-            if len(el['source']) <= 0:
-                continue
-
-            tmp = el['source'][0]
-
-            results = re.findall("#+\s+Zadanie\s+[0-9]+\\n", tmp)
-
-            if len(results) <= 0:
-                continue
-
-            created_by = re.findall("lab_.*_(.+).ipynb", notebook_file_name)
-            lab_num = re.findall("lab_(.*)_", notebook_file_name)
-
-            if len(created_by) < 1 or len(lab_num) < 1:
-                raise FileNotFoundError("File template does not match for ", notebook_file_name)
-
-            title: str = "zadanie " + tmp.split(" ")[-1][:-1]
-            content_lines: list[str] = cells[i + 1]['source']
-            actual_exercises[(notebook_file_name, title)] = to_valid_exercise(title, content_lines,
-                                                                              created_by[0], 0,
-                                                                              lab_num[0])  # [0] -> regex findall
-
-    return actual_exercises
-
-
 def _process_empty_student(name_surname, student_id, lab_folder):
-    return EmptyFolder(name_surname, student_id, lab_folder)
+    return FolderStructure(name_surname, student_id, lab_folder, False)
 
 
 def _process_valid_student(actual_exercises, name_surname, student_id, lab_folder, notebook_path):
@@ -90,7 +53,7 @@ def _init_new_way():
     path_to_json_files = 'lab/'
     folders = os.listdir(path_to_json_files)
     actual_exercises = {}
-    empty_folders = []
+    student_folders = []
 
     for lab_folder in folders:
 
@@ -103,13 +66,13 @@ def _init_new_way():
             notebook_student_folder = os.listdir(path_to_json_files + lab_folder + "/" + student_lab)
 
             if len(notebook_student_folder) < 1:
-                empty_folders.append(_process_empty_student(name_surname, student_id, lab_folder))
+               student_folders.append(FolderStructure(name_surname, student_id, lab_folder, False))
             else:
-                print(notebook_student_folder)
+                student_folders.append(FolderStructure(name_surname, student_id, lab_folder, True))
                 _process_valid_student(actual_exercises, name_surname, student_id, lab_folder,
                                        path_to_json_files + lab_folder + "/" + student_lab + "/" + notebook_student_folder[0])
 
-    return actual_exercises, empty_folders
+    return actual_exercises, student_folders
 
 
 def _init_mocks():
@@ -131,9 +94,8 @@ def _init_mocks():
 
 def init_context():
     expected_exercises = _init_expected_exercises()
-    actual_exercises = _init_actual_exercises()
     mocks = _init_mocks()
 
     actual_exercises2, empty_folders = _init_new_way()
 
-    return ValidatorContext(expected_exercises, actual_exercises, mocks)
+    return ValidatorContext(expected_exercises, actual_exercises2, mocks, empty_folders)

@@ -8,5 +8,5 @@ class ValidatorContext:
         self.actual_exercises = actual_exercises
         self.mocks = mocks
         self.exercises_result = exercises_result
-        self.empty_folders = empty_folders
+        self.folders_structure = empty_folders
 
