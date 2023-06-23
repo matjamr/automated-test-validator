@@ -13,10 +13,10 @@ lab
         -Grzegorz....
     -lab2
         -Jamroz_...
-                    -notatnik.ipynb
-                -Kowalski...
-                    -notatnik2.jpynb
-                -Grzegorz....
+            -notatnik.ipynb
+        -Kowalski...
+            -notatnik2.jpynb
+        -Grzegorz....
 ```
 
 <u>WAZNE ABY BYL TAM MAKSYMALNIE JEDEN PLIK</u>
@@ -47,7 +47,7 @@ i zobaczy ze chce type: int zamienic na content: 3. czyli a = 3
 </br>
 ## UWAGA 
 ponizej przesylam przygotowany plik exercises.json (Aktualnie umieszczony jest pusty, jako ze aktualne zadania 
-wyslane przez studentow nie sa przygotowane na sprawdzenie)
+wyslane przez studentow nie sa przygotowane na sprawdzenie~~Ś~~)
 ```
 {
   "lab_1": {
