@@ -2,7 +2,7 @@ import json
 import glob
 import re
 from app.models.Exercise import Exercise
-
+import os
 
 def read_json(filename: str) -> dict[str: object]:
     with open(filename, 'r', encoding='utf-8') as file:
@@ -15,15 +15,15 @@ def to_valid_exercise(title: str, exercise_lines: list[str], creator: str, test_
 
 
 def load_file() -> dict[str: object]:
-    folder_path = 'filesToCheck/'
-    ipynb_files = glob.glob(folder_path + '*.ipynb')
+    folder_path = 'lab/'
+    ipynb_files = glob.glob(os.path.join(folder_path, '**/*.ipynb'), recursive=True)
     json_data = {}
     for file_path in ipynb_files:
         with open(file_path, 'r', encoding='utf-8') as file:
             notebook_content = file.read()
         notebook_json = json.loads(notebook_content)
-        # file_path[13::] because 0:13 its folder path
-        json_data[file_path[13::]] = notebook_json['cells']
+        relative_path = os.path.relpath(file_path, folder_path)
+        json_data[relative_path] = notebook_json['cells']
 
     return json_data
 
