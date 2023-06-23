@@ -400,3 +400,40 @@ wyslane przez studentow nie sa przygotowane na sprawdzenie~~Ś~~)
   }
 }
 ```
+
+### WYKYRWANIE PLAGIATÓW
+
+W pliku main mamy dwie zmienne globalne TEST_1, TEST_2. W celu zmienienia wartości współczynika wystarczy podstawić swoje dane.
+Domyślnie obie wartości są ustawione na 0.95. Wartości powinny być z zakresu 0 - 1.0.
+
+
+## Test_1:
+Moduł difflib w Pythonie zawiera klasę SequenceMatcher, która służy do porównywania sekwencji tekstowych i znajdowania podobieństw pomiędzy nimi. SequenceMatcher korzysta z algorytmu porównywania sekwencji opartego na algorytmie Needlemana-Wunscha.
+
+Oto podstawowe kroki działania SequenceMatcher:
+
+Tworzenie obiektu SequenceMatcher i przekazanie dwóch sekwencji tekstowych jako argumenty konstruktora:
+python
+Copy code
+from difflib import SequenceMatcher
+
+s1 = "abcde"
+
+s2 = "bcde"
+
+matcher = SequenceMatcher(None, s1, s2)
+Wywołanie metody ratio(), która zwraca podobieństwo (w zakresie od 0 do 1) między dwiema sekwencjami. Im wyższa wartość, tym większe podobieństwo:
+python
+Copy code
+similarity = matcher.ratio()
+print(similarity)  # 0.8
+
+## TEST_2
+
+Copydetect to narzędzie do wykrywania plagiatu kodu oparte na podejściu zaproponowanym w „ Winnowing: Local Algorithms for Document Fingerprinting ” i używane na popularnej platformie MOSS . Copydetect pobiera listę katalogów zawierających kod jako dane wejściowe i generuje raport HTML wyświetlający skopiowane wycinki jako dane wyjściowe. Implementacja wykorzystuje szybkie funkcje numpy do wydajnego generowania wyników. Tokenizacja kodu jest obsługiwana przez Pygments , więc wszystkie ponad 500 języków, które pygmenty mogą wykrywać i tokenizować, są z kolei obsługiwane przez copydetect.
+
+## Wyniki
+
+Wyniki zapisujemy w pliku Plagiaty.xlsx. Każde zadanie studenta jest sprawdzone z każdym innym. Jeśli oba testy wykryją podobieństwo równe lub większe niż
+to co ustawiliśmy, pliku Plagiaty wypisze nam dane tych dwóch studentów, wraz z podobieństwem tych testów i zadaniem.
+Zalecam sprawdzenie wtedy tych zadań, gdyż niektóre zadania są tak krótkie i proste, że ich współczynik będzię wysoki nawet jeśli to nie plagiat

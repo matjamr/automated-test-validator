@@ -6,6 +6,7 @@ import pandas as pd
 import copydetect
 import os
 from openpyxl import Workbook
+from main import TEST_1, TEST_2
 
 
 class PlagiarismExecutor(BaseExecutor):
@@ -93,7 +94,6 @@ class PlagiarismExecutor(BaseExecutor):
 
         self.write_result()
 
-
     def get_task_names(self) -> list[str]:
         task_names = []
         for values in self.students_tasks.values():
@@ -107,10 +107,10 @@ class PlagiarismExecutor(BaseExecutor):
             for j in range(i + 1, len(students_names)):
                 try:
                     similarity_ratio = self.get_similarity_ratio(students_names, i, j, task)
-                    if similarity_ratio >= 0.95:
+                    if similarity_ratio >= TEST_1:
                         self.write_files(students_names, i, j, task)
                         similarity_score = get_similarity_score(students_names, i, j, task)
-                        if similarity_score >= 0.97:
+                        if similarity_score >= TEST_2:
                             self.update_result(students_names, i, j, task, similarity_ratio, similarity_score)
                             clean_up_files()
 
@@ -164,17 +164,12 @@ class PlagiarismExecutor(BaseExecutor):
                 row = [lab_data[column][i] if i < len(lab_data[column]) else None for column in columns]
                 ws.append(row)
 
-<<<<<<< HEAD
         # Usuwanie domyślnego arkusza
         default_sheet = wb['Sheet']
         wb.remove(default_sheet)
 
         # Zapisywanie pliku Excel
         wb.save('Plagiaty.xlsx')
-=======
-        wb.remove(wb['Sheet'])
-        wb.save('Result1.xlsx')
->>>>>>> e6d7556e84506c5e89c54e5cc0841b39cc755251
 
 
 def get_similarity_score(students_names: list[str], i: int, j: int, task: str) -> float:
