@@ -132,7 +132,7 @@ class PlagiarismExecutor(BaseExecutor):
                 ws.append(row)
 
         wb.remove(wb['Sheet'])
-        wb.save('Result.xlsx')
+        wb.save('Result1.xlsx')
 
 
 def get_similarity_score(students_names: list[str], i: int, j: int, task: str) -> float:

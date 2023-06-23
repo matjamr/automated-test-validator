@@ -43,7 +43,7 @@ class RaportExecutor(BaseExecutor):
     def process_folders_status(self, validator_context, workbook):
         worksheet = workbook.add_worksheet("STATUS")
 
-        all_labs =  list(dict.fromkeys([folder.lab_folder for folder in validator_context.folders_structure]))
+        all_labs = list(dict.fromkeys([folder.lab_folder for folder in validator_context.folders_structure]))
         sorted(all_labs, reverse=True)
 
         for col, lab_num in enumerate(all_labs):
