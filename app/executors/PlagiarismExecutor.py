@@ -164,12 +164,17 @@ class PlagiarismExecutor(BaseExecutor):
                 row = [lab_data[column][i] if i < len(lab_data[column]) else None for column in columns]
                 ws.append(row)
 
+<<<<<<< HEAD
         # Usuwanie domyślnego arkusza
         default_sheet = wb['Sheet']
         wb.remove(default_sheet)
 
         # Zapisywanie pliku Excel
         wb.save('Plagiaty.xlsx')
+=======
+        wb.remove(wb['Sheet'])
+        wb.save('Result1.xlsx')
+>>>>>>> e6d7556e84506c5e89c54e5cc0841b39cc755251
 
 
 def get_similarity_score(students_names: list[str], i: int, j: int, task: str) -> float:
