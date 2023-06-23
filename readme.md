@@ -403,7 +403,7 @@ wyslane przez studentow nie sa przygotowane na sprawdzenie~~Ś~~)
 
 ### WYKYRWANIE PLAGIATÓW
 
-W pliku main mamy dwie zmienne globalne TEST_1, TEST_2. W celu zmienienia wartości współczynika wystarczy podstawić swoje dane.
+W pliku app/executors/PlagiarismExecutor.py mamy dwie zmienne globalne TEST_1, TEST_2. W celu zmienienia wartości współczynika wystarczy podstawić swoje dane.
 Domyślnie obie wartości są ustawione na 0.95. Wartości powinny być z zakresu 0 - 1.0.
 
 

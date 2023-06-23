@@ -6,7 +6,9 @@ import pandas as pd
 import copydetect
 import os
 from openpyxl import Workbook
-from main import TEST_1, TEST_2
+
+TEST_1 = 0.95
+TEST_2 = 0.95
 
 
 class PlagiarismExecutor(BaseExecutor):
@@ -145,7 +147,6 @@ class PlagiarismExecutor(BaseExecutor):
 
     def write_result(self) -> None:
         wb = Workbook()
-        print(self.results['lab1']['Test_1:'])
         for lab, lab_data in self.results.items():
             # Tworzenie nowego arkusza o nazwie 'lab_X'
             ws = wb.create_sheet(lab[0:5])
